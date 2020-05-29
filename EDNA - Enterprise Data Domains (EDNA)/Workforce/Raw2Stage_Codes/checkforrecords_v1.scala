@@ -9,11 +9,11 @@ val business_name="workday"
 val wd_employee_raw= "workforce_raw.wd_employee_raw"
 val wd_employee= "workforce_raw.wd_employee_final"
 val wd_employee_inc= "workforce_raw.wd_employee_inc"
-val pswd=dbutils.secrets.get(scope = "adls_workforce_accesskey", key = "DataOpsDW-elancoadmin")
-val key=dbutils.secrets.get(scope = "adls_workforce_accesskey", key = "ADLS-WORKFORCEDATADOMAIN")
-val secret=dbutils.secrets.get(scope = "db_workforce_scope", key = "DataOpsServicePrincipal01-Secret")
-val clintid=dbutils.secrets.get(scope = "db_workforce_scope", key = "DataOpsServicePrincipal01-ClintID")
-val tenantid=dbutils.secrets.get(scope = "db_workforce_scope", key = "DataOpsServicePrincipal01-TenantID")
+val pswd=dbutils.secrets.get(scope = "AKV_EDNA", key = "DataOpsDW-elancoadmin")
+val key=dbutils.secrets.get(scope = "AKV_EDNA", key = "ADLS-WORKFORCEDATADOMAIN")
+val secret=dbutils.secrets.get(scope = "AKV_EDNA", key = "DataOpsServicePrincipal01-Secret")
+val clintid=dbutils.secrets.get(scope = "AKV_EDNA", key = "DataOpsServicePrincipal01-ClintID")
+val tenantid=dbutils.secrets.get(scope = "AKV_EDNA", key = "DataOpsServicePrincipal01-TenantID")
 
 // COMMAND ----------
 
