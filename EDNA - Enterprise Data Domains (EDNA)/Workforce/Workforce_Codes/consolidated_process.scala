@@ -269,6 +269,16 @@ CASE
   ELSE inc.user_name 
 END               AS user_name, 
 CASE 
+  WHEN inc.Gender IS NULL 
+        OR Upper(inc.Gender) = '''NULL''' THEN final.Gender 
+  ELSE inc.Gender 
+END               AS Gender, 
+CASE 
+  WHEN inc.Date_Of_Birth IS NULL 
+        OR Upper(inc.Date_Of_Birth) = '''NULL''' THEN final.Date_Of_Birth 
+  ELSE inc.Date_Of_Birth 
+END               AS Date_Of_Birth, 
+CASE 
   WHEN inc.phone_number IS NULL 
         OR Upper(inc.phone_number) = '''NULL''' THEN final.phone_number 
   ELSE inc.phone_number 
@@ -278,6 +288,21 @@ CASE
         OR Upper(inc.home_phone_number) = '''NULL''' THEN final.home_phone_number 
   ELSE inc.home_phone_number 
 END               AS home_phone_number, 
+CASE 
+  WHEN inc.Emergency_Contact_Name IS NULL 
+        OR Upper(inc.Emergency_Contact_Name) = '''NULL''' THEN final.Emergency_Contact_Name 
+  ELSE inc.Emergency_Contact_Name 
+END               AS Emergency_Contact_Name, 
+CASE 
+  WHEN inc.Emergency_Contact_Number_Home IS NULL 
+        OR Upper(inc.Emergency_Contact_Number_Home) = '''NULL''' THEN final.Emergency_Contact_Number_Home 
+  ELSE inc.Emergency_Contact_Number_Home 
+END               AS Emergency_Contact_Number_Home, 
+CASE 
+  WHEN inc.Emergency_Contact_Number_Work IS NULL 
+        OR Upper(inc.Emergency_Contact_Number_Work) = '''NULL''' THEN final.Emergency_Contact_Number_Work 
+  ELSE inc.Emergency_Contact_Number_Work 
+END               AS Emergency_Contact_Number_Work, 
 CASE 
   WHEN inc.office_address IS NULL 
         OR Upper(inc.office_address) = '''NULL''' THEN final.office_address 
@@ -327,6 +352,12 @@ CASE
   final.Postal_Code 
   ELSE inc.Postal_Code 
 END               AS Postal_Code, 
+CASE 
+  WHEN inc.Time_Zone IS NULL 
+        OR Upper(inc.Time_Zone) = '''NULL''' THEN 
+  final.Postal_Code 
+  ELSE inc.Time_Zone 
+END               AS Time_Zone, 
 CASE 
   WHEN inc.location_reference_id IS NULL 
         OR Upper(inc.location_reference_id) = '''NULL''' THEN 
@@ -441,6 +472,12 @@ CASE
   ELSE inc.manager_employee_id 
 END               AS manager_employee_id, 
 CASE 
+  WHEN inc.Supervisor IS NULL 
+        OR Upper(inc.Supervisor) = '''NULL''' THEN 
+  final.Supervisor 
+  ELSE inc.Supervisor 
+END               AS Supervisor,
+CASE 
   WHEN inc.supervisory_org_name IS NULL 
         OR Upper(inc.supervisory_org_name) = '''NULL''' THEN 
   final.supervisory_org_name 
@@ -452,6 +489,12 @@ CASE
   final.supervisory_organization_id 
   ELSE inc.supervisory_organization_id 
 END               AS supervisory_organization_id, 
+CASE 
+  WHEN inc.Supervisor_location_hierarchies IS NULL 
+        OR Upper(inc.Supervisor_location_hierarchies) = '''NULL''' THEN 
+  final.Supervisor_location_hierarchies 
+  ELSE inc.Supervisor_location_hierarchies 
+END               AS Supervisor_location_hierarchies, 
 CASE 
   WHEN inc.time_type IS NULL 
         OR Upper(inc.time_type) = '''NULL''' THEN final.time_type 
@@ -542,8 +585,13 @@ WHEN NOT MATCHED
 ,preferred_middle_name
 ,preferred_last_name
 ,user_name
+,Gender
+,Date_Of_Birth
 ,phone_number
 ,home_phone_number
+,Emergency_Contact_Name
+,Emergency_Contact_Number_Home
+,Emergency_Contact_Number_Work
 ,office_address
 ,email_work
 ,primary_work_email
@@ -553,6 +601,7 @@ WHEN NOT MATCHED
 ,location_address_State
 ,location_address_country
 ,Postal_Code
+,Time_Zone
 ,location_reference_id
 ,drop_code
 ,affiliate
@@ -575,8 +624,10 @@ WHEN NOT MATCHED
 ,supplier
 ,secondary_vendor
 ,manager_employee_id
+,Supervisor
 ,supervisory_org_name
 ,supervisory_organization_id
+,Supervisor_location_hierarchies
 ,time_type
 ,worker_type
 ,cost_center_id
@@ -602,8 +653,13 @@ newrecords.datepart
 ,newrecords.preferred_middle_name
 ,newrecords.preferred_last_name
 ,newrecords.user_name
+,newrecords.Gender
+,newrecords.Date_Of_Birth
 ,newrecords.phone_number
 ,newrecords.home_phone_number
+,newrecords.Emergency_Contact_Name
+,newrecords.Emergency_Contact_Number_Home
+,newrecords.Emergency_Contact_Number_Work
 ,newrecords.office_address
 ,newrecords.email_work
 ,newrecords.primary_work_email
@@ -613,6 +669,7 @@ newrecords.datepart
 ,newrecords.location_address_State
 ,newrecords.location_address_country
 ,newrecords.Postal_Code
+,newrecords.Time_Zone
 ,newrecords.location_reference_id
 ,newrecords.drop_code
 ,newrecords.affiliate
@@ -635,8 +692,10 @@ newrecords.datepart
 ,newrecords.supplier
 ,newrecords.secondary_vendor
 ,newrecords.manager_employee_id
+,newrecords.Supervisor
 ,newrecords.supervisory_org_name
 ,newrecords.supervisory_organization_id
+,newrecords.Supervisor_location_hierarchies
 ,newrecords.time_type
 ,newrecords.worker_type
 ,newrecords.cost_center_id
