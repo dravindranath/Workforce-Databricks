@@ -1,8 +1,4 @@
 // Databricks notebook source
-
-
-// COMMAND ----------
-
 // DBTITLE 1,Declare Variables
 val adls_storage_account_name = "bdaze1iednadl01"
 val adls_container_name = "edna-workforcedatadomain" 
@@ -199,11 +195,21 @@ col("Emp_data.Last_Name").as("Last_Name"),
 col("Emp_data.Preferred_Name_-_First_Name").as("Preferred_Name_First_Name"),
 col("Emp_data.Preferred_Name_-_Middle_Name").as("Preferred_Name_Middle_Name"),
 col("Emp_data.Preferred_Last_Name").as("Preferred_Name_Last_Name"),
+col("Emp_data.gender").as("gender"),
+col("Emp_data.date_of_birth").as("Date_Of_Birth"),
 col("Emp_data.Phone_Number").as("Phone_Number"),
 col("Emp_data.Home_Phone_Number").as("Home_Phone_Number"),
+col("Emp_data.Emergency_Contact_Name").as("Emergency_Contact_Name"),
+col("Emp_data.Emergency_Contact_Primary_Home_Number").as("Emergency_Contact_Number_Home"),
+col("Emp_data.Emergency_Contact_Primary_Work_Number").as("Emergency_Contact_Number_Work"),
 col("Emp_data.primary_Work_Email").as("primary_Work_Email"),
 col("Emp_data.Location").as("Location"),
+col("Emp_data.Address_Line_1").as("Address_Line"),
+col("Emp_data.City").as("location_address_City"),
+col("Emp_data.State").as("location_address_State"),
 col("Emp_data.Location_Address_-_Country").as("Location_Address_Country"),
+col("Emp_data.Postal_Code").as("Postal_Code"),
+col("Emp_data.Time_Zone").as("Time_Zone"),
 col("Emp_data.Location_Reference_ID").as("Location_Reference_ID"),
 col("Emp_data.Position_ID").as("Position_ID"),
 col("Emp_data.Position_Title").as("Position_Title"),
@@ -217,9 +223,12 @@ col("Emp_data.Job_Family").as("Job_Family"),
 col("Emp_data.Job_Family_Group").as("Job_Family_Group"),
 col("Emp_data.Active_Status").as("Active_Status"),
 col("Emp_data.Contract_End_Date").as("Contract_End_Date"),
+col("Emp_data.Status").as("Status"),
 col("Emp_data.Manager_Employee_ID").as("Manager_Employee_ID"),
+col("Emp_data.Supervisor").as("Supervisor"),
 col("Emp_data.Supervisory_Org_Name").as("Supervisory_Org_Name"),
 col("Emp_data.Supervisory_Organization_-_ID").as("Supervisory_Organization_ID"),
+col("Emp_data.CF_LRV_Suerior_location_hierarchies").as("Supervisor_location_hierarchies"),
 col("Emp_data.Cost_Center_ID").as("Cost_Center_ID"),
 col("Emp_data.Cost_Center").as("Cost_Centre"),
 col("Emp_data.Cost_Center_Name").as("Cost_Center_Name"),
