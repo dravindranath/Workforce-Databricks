@@ -76,7 +76,7 @@ spark.conf.set("fs.azure.account.oauth2.client.endpoint."+adls_storage_account_n
 // COMMAND ----------
 
 // DBTITLE 1,create Dataframe
-val main_employee_consolidated_dataframe= sqlContext.sql(s"select a.employee_id,a.first_name,a.middle_name,a.last_name,a.preferred_name_first_name,a.preferred_name_middle_name,a.preferred_name_last_name,a.user_name,a.phone_number,a.home_phone_number,b.address as office_address,b.email_address as email_work,a.primary_work_email,a.location,' ' as location_code,a.location_address_country,a.location_reference_id,' ' as drop_code,' ' as affiliate,' ' as hub,a.position_id,a.position_title,' ' as domain,a.previous_system_id,a.is_manager,a.hire_date,a.original_hire_date,position_title as job_title,a.job_classification_id,a.job_code,a.job_family,a.job_family_group,a.active_status,a.contract_end_date,' ' as supplier,' ' as secondary_vendor,a.manager_employee_id,a.supervisory_org_name,a.supervisory_organization_id,a.time_type,a.worker_type,a.cost_center_id,a.cost_centre,a.cost_center_name,a.worker_sub_type,' ' as contingent_worker_supplier,' ' as currently_active,' ' as retiree,b.upn,b.email_address,'Y' as active_ind,a.load_datetime from ${wd_employee} a inner join ${rsa_employee} b on a.employee_id=b.user_id")//.createOrReplaceTempView("employee_consolidated")
+val main_employee_consolidated_dataframe= sqlContext.sql(s"select a.employee_id,a.first_name,a.middle_name,a.last_name,a.preferred_name_first_name,a.preferred_name_middle_name,a.preferred_name_last_name,a.user_name,a.gender,a.Date_Of_Birth,a.phone_number,a.home_phone_number,a.Emergency_Contact_Name,a.Emergency_Contact_Number_Home,a.Emergency_Contact_Number_Work,a.Address_Line as office_address,b.email_address as email_work,a.primary_work_email,a.location,' ' as location_code,a.location_address_City,a.location_address_State,a.location_address_country,a.Postal_Code,a.Time_Zone,a.location_reference_id,' ' as drop_code,' ' as affiliate,' ' as hub,a.position_id,a.position_title,' ' as domain,a.previous_system_id,a.is_manager,a.hire_date,a.original_hire_date,position_title as job_title,a.job_classification_id,a.job_code,a.job_family,a.job_family_group,a.active_status,a.contract_end_date,a.Status,' ' as supplier,' ' as secondary_vendor,a.manager_employee_id,a.Supervisor,a.supervisory_org_name,a.supervisory_organization_id,a.Supervisor_location_hierarchies,a.time_type,a.worker_type,a.cost_center_id,a.cost_centre,a.cost_center_name,a.worker_sub_type,' ' as contingent_worker_supplier,' ' as currently_active,' ' as retiree,b.upn,b.email_address,'Y' as active_ind,a.load_datetime from ${wd_employee} a inner join ${rsa_employee} b on a.employee_id=b.user_id")//.createOrReplaceTempView("employee_consolidated")
 //employee_consolidated_dataframe.show()
 //main_employee_consolidated_dataframe.persist()
 
@@ -100,14 +100,23 @@ col("Employee_ID")
 ,col("Preferred_Name_Middle_Name")
 ,col("Preferred_Name_Last_Name")
 ,col("User_name")
+,col("gender")
+,col("Date_Of_Birth")
 ,col("Phone_Number")
 ,col("Home_Phone_Number")
+,col("Emergency_Contact_Name")
+,col("Emergency_Contact_Number_Home")
+,col("Emergency_Contact_Number_Work")
 ,col("Office_Address")
 ,col("Email_Work")
 ,col("primary_Work_Email")
 ,col("Location")
 ,col("Location_Code")
+,col("location_address_City")
+,col("location_address_State")
 ,col("Location_Address_Country")
+,col("Postal_Code")  
+,col("Time_Zone")
 ,col("Location_Reference_ID")
 ,col("Drop_Code")
 ,col("Affiliate")
@@ -126,11 +135,14 @@ col("Employee_ID")
 ,col("Job_Family_Group")
 ,col("Active_Status")
 ,col("Contract_End_Date")
+,col("Status")
 ,col("Supplier")
 ,col("Secondary_Vendor")
 ,col("Manager_Employee_ID")
+,col("Supervisor")
 ,col("Supervisory_Org_Name")
 ,col("Supervisory_Organization_ID")
+,col("Supervisor_location_hierarchies")
 ,col("Time_Type")
 ,col("Worker_Type")
 ,col("Cost_Center_ID")
@@ -292,11 +304,29 @@ CASE
   ELSE inc.location_code 
 END               AS location_code, 
 CASE 
+  WHEN inc.location_address_City IS NULL 
+        OR Upper(inc.location_address_City) = '''NULL''' THEN 
+  final.location_address_City 
+  ELSE inc.location_address_City 
+END               AS location_address_City, 
+CASE 
+  WHEN inc.location_address_State IS NULL 
+        OR Upper(inc.location_address_State) = '''NULL''' THEN 
+  final.location_address_State 
+  ELSE inc.location_address_State 
+END               AS location_address_State, 
+CASE 
   WHEN inc.location_address_country IS NULL 
         OR Upper(inc.location_address_country) = '''NULL''' THEN 
   final.location_address_country 
   ELSE inc.location_address_country 
 END               AS location_address_country, 
+CASE 
+  WHEN inc.Postal_Code IS NULL 
+        OR Upper(inc.Postal_Code) = '''NULL''' THEN 
+  final.Postal_Code 
+  ELSE inc.Postal_Code 
+END               AS Postal_Code, 
 CASE 
   WHEN inc.location_reference_id IS NULL 
         OR Upper(inc.location_reference_id) = '''NULL''' THEN 
@@ -389,6 +419,11 @@ CASE
         OR Upper(inc.contract_end_date) = '''NULL''' THEN final.contract_end_date 
   ELSE inc.contract_end_date 
 END               AS contract_end_date, 
+CASE 
+  WHEN inc.Status IS NULL 
+        OR Upper(inc.Status) = '''NULL''' THEN final.Status 
+  ELSE inc.Status 
+END               AS Status, 
 CASE 
   WHEN inc.supplier IS NULL 
         OR Upper(inc.supplier) = '''NULL''' THEN final.supplier 
@@ -514,7 +549,10 @@ WHEN NOT MATCHED
 ,primary_work_email
 ,location
 ,location_code
+,location_address_City
+,location_address_State
 ,location_address_country
+,Postal_Code
 ,location_reference_id
 ,drop_code
 ,affiliate
@@ -533,6 +571,7 @@ WHEN NOT MATCHED
 ,job_family_group
 ,active_status
 ,contract_end_date
+,Status
 ,supplier
 ,secondary_vendor
 ,manager_employee_id
@@ -570,7 +609,10 @@ newrecords.datepart
 ,newrecords.primary_work_email
 ,newrecords.location
 ,newrecords.location_code
+,newrecords.location_address_City
+,newrecords.location_address_State
 ,newrecords.location_address_country
+,newrecords.Postal_Code
 ,newrecords.location_reference_id
 ,newrecords.drop_code
 ,newrecords.affiliate
@@ -589,6 +631,7 @@ newrecords.datepart
 ,newrecords.job_family_group
 ,newrecords.active_status
 ,newrecords.contract_end_date
+,newrecords.Status
 ,newrecords.supplier
 ,newrecords.secondary_vendor
 ,newrecords.manager_employee_id
