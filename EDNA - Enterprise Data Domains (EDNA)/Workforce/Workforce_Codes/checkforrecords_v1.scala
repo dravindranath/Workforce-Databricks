@@ -1,4 +1,8 @@
 // Databricks notebook source
+
+
+// COMMAND ----------
+
 // DBTITLE 1,Declare Variables
 val adls_storage_account_name = "bdaze1iednadl01"
 val adls_container_name = "edna-workforcedatadomain" 
@@ -68,11 +72,21 @@ col("Emp_data.Last_Name").as("Last_Name"),
 col("Emp_data.Preferred_Name_-_First_Name").as("Preferred_Name_First_Name"),
 col("Emp_data.Preferred_Name_-_Middle_Name").as("Preferred_Name_Middle_Name"),
 col("Emp_data.Preferred_Last_Name").as("Preferred_Name_Last_Name"),
+col("Emp_data.gender").as("gender"),
+col("Emp_data.date_of_birth").as("Date_Of_Birth"),
 col("Emp_data.Phone_Number").as("Phone_Number"),
 col("Emp_data.Home_Phone_Number").as("Home_Phone_Number"),
+col("Emp_data.Emergency_Contact_Name").as("Emergency_Contact_Name"),
+col("Emp_data.Emergency_Contact_Primary_Home_Number").as("Emergency_Contact_Number_Home"),
+col("Emp_data.Emergency_Contact_Primary_Work_Number").as("Emergency_Contact_Number_Work"),
 col("Emp_data.primary_Work_Email").as("primary_Work_Email"),
 col("Emp_data.Location").as("Location"),
+col("Emp_data.Address_Line_1").as("Address_Line"),
+col("Emp_data.City").as("location_address_City"),
+col("Emp_data.State").as("location_address_State"),
 col("Emp_data.Location_Address_-_Country").as("Location_Address_Country"),
+col("Emp_data.Postal_Code").as("Postal_Code"),
+col("Emp_data.Time_Zone").as("Time_Zone"),
 col("Emp_data.Location_Reference_ID").as("Location_Reference_ID"),
 col("Emp_data.Position_ID").as("Position_ID"),
 col("Emp_data.Position_Title").as("Position_Title"),
@@ -86,9 +100,12 @@ col("Emp_data.Job_Family").as("Job_Family"),
 col("Emp_data.Job_Family_Group").as("Job_Family_Group"),
 col("Emp_data.Active_Status").as("Active_Status"),
 col("Emp_data.Contract_End_Date").as("Contract_End_Date"),
+col("Emp_data.Status").as("Status"),
 col("Emp_data.Manager_Employee_ID").as("Manager_Employee_ID"),
+col("Emp_data.Supervisor").as("Supervisor"),
 col("Emp_data.Supervisory_Org_Name").as("Supervisory_Org_Name"),
 col("Emp_data.Supervisory_Organization_-_ID").as("Supervisory_Organization_ID"),
+col("Emp_data.CF_LRV_Suerior_location_hierarchies").as("Supervisor_location_hierarchies"),
 col("Emp_data.Cost_Center_ID").as("Cost_Center_ID"),
 col("Emp_data.Cost_Center").as("Cost_Centre"),
 col("Emp_data.Cost_Center_Name").as("Cost_Center_Name"),
@@ -108,13 +125,23 @@ Employee_ID
 ,case when upper(Last_Name)='''NULL''' then  null  else Last_Name End as Last_Name
 ,case when upper(Preferred_Name_First_Name)='''NULL''' then  null  else Preferred_Name_First_Name End as Preferred_Name_First_Name
 ,case when upper(Preferred_Name_Middle_Name)='''NULL''' then  null  else Preferred_Name_Middle_Name End as Preferred_Name_Middle_Name
-,case when upper(User_name)='''NULL''' then  null  else User_name End as User_name
 ,case when upper(Preferred_Name_Last_Name)='''NULL''' then  null  else Preferred_Name_Last_Name End as Preferred_Name_Last_Name
+,case when upper(User_name)='''NULL''' then  null  else User_name End as User_name
+,case when upper(gender)='''NULL''' then  null  else gender End as gender
+,case when upper(Date_Of_Birth)='''NULL''' then  null  else Date_Of_Birth End as Date_Of_Birth
 ,case when upper(Phone_Number)='''NULL''' then  null  else Phone_Number End as Phone_Number
 ,case when upper(Home_Phone_Number)='''NULL''' then  null  else Home_Phone_Number End as Home_Phone_Number
+,case when upper(Emergency_Contact_Name)='''NULL''' then  null  else Emergency_Contact_Name End as Emergency_Contact_Name
+,case when upper(Emergency_Contact_Number_Home)='''NULL''' then  null  else Emergency_Contact_Number_Home End as Emergency_Contact_Number_Home
+,case when upper(Emergency_Contact_Number_Work)='''NULL''' then  null  else Emergency_Contact_Number_Work End as Emergency_Contact_Number_Work
 ,case when upper(primary_Work_Email)='''NULL''' then  null  else primary_Work_Email End as primary_Work_Email
 ,case when upper(Location)='''NULL''' then  null  else Location End as Location
+,case when upper(Address_Line)='''NULL''' then  null  else Address_Line End as Address_Line
+,case when upper(location_address_City)='''NULL''' then  null  else location_address_City End as location_address_City
+,case when upper(location_address_State)='''NULL''' then  null  else location_address_State End as location_address_State
 ,case when upper(Location_Address_Country)='''NULL''' then  null  else Location_Address_Country End as Location_Address_Country
+,case when upper(Postal_Code)='''NULL''' then  null  else Postal_Code End as Postal_Code
+,case when upper(Time_Zone)='''NULL''' then  null  else Time_Zone End as Time_Zone
 ,case when upper(Location_Reference_ID)='''NULL''' then  null  else Location_Reference_ID End as Location_Reference_ID
 ,case when upper(Position_ID)='''NULL''' then  null  else Position_ID End as Position_ID
 ,case when upper(Position_Title)='''NULL''' then  null  else Position_Title End as Position_Title
@@ -128,9 +155,12 @@ Employee_ID
 ,case when upper(Job_Family_Group)='''NULL''' then  null  else Job_Family_Group End as Job_Family_Group
 ,case when upper(Active_Status)='''NULL''' then  null  else Active_Status End as Active_Status
 ,case when upper(Contract_End_Date)='''NULL''' then  null  else Contract_End_Date End as Contract_End_Date
+,case when upper(Status)='''NULL''' then  null  else Status End as Status
 ,case when upper(Manager_Employee_ID)='''NULL''' then  null  else Manager_Employee_ID End as Manager_Employee_ID
+,case when upper(Supervisor)='''NULL''' then  null  else Supervisor End as Supervisor
 ,case when upper(Supervisory_Org_Name)='''NULL''' then  null  else Supervisory_Org_Name End as Supervisory_Org_Name
 ,case when upper(Supervisory_Organization_ID)='''NULL''' then  null  else Supervisory_Organization_ID End as Supervisory_Organization_ID
+,case when upper(Supervisor_location_hierarchies)='''NULL''' then  null  else Supervisor_location_hierarchies End as Supervisor_location_hierarchies==============
 ,case when upper(Cost_Center_ID)='''NULL''' then  null  else Cost_Center_ID End as Cost_Center_ID
 ,case when upper(Cost_Centre)='''NULL''' then  null  else Cost_Centre End as Cost_Centre
 ,case when upper(Cost_Center_Name)='''NULL''' then  null  else Cost_Center_Name End as Cost_Center_Name
@@ -146,7 +176,7 @@ val checkfornulls=spark.sql("select * from checkfornulls_tbl")
 
 // COMMAND ----------
 
-val aftercoalesce=checkfornulls.withColumn("Record_status",coalesce($"First_Name",$"Middle_Name",$"Last_Name",$"Preferred_Name_First_Name",$"Preferred_Name_Middle_Name",$"User_name",$"Preferred_Name_Last_Name",$"Phone_Number",$"Home_Phone_Number",$"primary_Work_Email",$"Location",$"Location_Address_Country",$"Location_Reference_ID",$"Position_ID",$"Position_Title",$"Previous_System_ID",$"Is_Manager",$"Hire_Date",$"Original_Hire_Date",$"Job_Classification_ID",$"Job_Code",$"Job_Family",$"Job_Family_Group",$"Active_Status",$"Contract_End_Date",$"Manager_Employee_ID",$"Supervisory_Org_Name",$"Supervisory_Organization_ID",$"Cost_Center_ID",$"Cost_Centre",$"Cost_Center_Name",$"Contingent_Worker_Supplier",$"Time_Type",$"Worker_Type",$"Worker_Sub_Type",lit("No_Record")))
+val aftercoalesce=checkfornulls.withColumn("Record_status",coalesce($"First_Name",$"Middle_Name",$"Last_Name",$"Preferred_Name_First_Name",$"Preferred_Name_Middle_Name",$"User_name",$"Preferred_Name_Last_Name",$"gender",$"Date_Of_Birth",$"Phone_Number",$"Home_Phone_Number",$"Emergency_Contact_Name",$"Emergency_Contact_Number_Home",$"Emergency_Contact_Number_Work",$"primary_Work_Email",$"Location",$"Address_Line",$"location_address_City",$"location_address_City",$"Location_Address_Country",$"Postal_Code",$"Time_Zone",$"Location_Reference_ID",$"Position_ID",$"Position_Title",$"Previous_System_ID",$"Is_Manager",$"Hire_Date",$"Original_Hire_Date",$"Job_Classification_ID",$"Job_Code",$"Job_Family",$"Job_Family_Group",$"Active_Status",$"Contract_End_Date",$"Status",$"Manager_Employee_ID",$"Supervisor",$"Supervisory_Org_Name",$"Supervisory_Organization_ID",$"Supervisor_location_hierarchies",$"Cost_Center_ID",$"Cost_Centre",$"Cost_Center_Name",$"Contingent_Worker_Supplier",$"Time_Type",$"Worker_Type",$"Worker_Sub_Type",lit("No_Record")))
 aftercoalesce.show()
 
 // COMMAND ----------
